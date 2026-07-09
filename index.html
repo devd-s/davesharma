@@ -596,6 +596,8 @@ ul.b li.sec::before{color:#b08888}
 </div>
 </div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script>
 function showView(v){
   ['detailed','highlights','ats'].forEach(id=>{
@@ -607,31 +609,41 @@ function showView(v){
   });
 }
 
-function downloadPDF(){
-  const btn=document.getElementById('dl-btn');
-  const activeView = ['detailed','highlights','ats'].find(id=>document.getElementById('view-'+id).style.display!=='none') || 'detailed';
-  const targetId = activeView==='highlights' ? 'resume-highlights' : activeView==='ats' ? 'view-ats' : 'resume-detailed';
-  btn.innerHTML='<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0"><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"/><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"/><line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"/><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"/></svg> Generating…';
-  btn.style.opacity='0.7';
-  fetch('https://api.html2pdf.app/v1/generate',{
-    method:'POST',
-    headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({html:document.getElementById(targetId).outerHTML,apiKey:'free'})
-  })
-  .then(r=>{if(!r.ok)throw new Error();return r.blob()})
-  .then(blob=>{
-    const a=document.createElement('a');
-    a.href=URL.createObjectURL(blob);
-    a.download='Davesh_Sharma_Resume.pdf';
-    a.click();
-    btn.innerHTML='<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7,10 12,15 17,10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Download PDF';
-    btn.style.opacity='1';
-  })
-  .catch(()=>{
-    window.print();
-    btn.innerHTML='<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7,10 12,15 17,10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Download PDF';
-    btn.style.opacity='1';
-  });
+async function downloadPDF(){
+  const btn = document.getElementById('dl-btn');
+  const activeView = ['detailed','highlights','ats'].find(id => document.getElementById('view-'+id).style.display !== 'none') || 'detailed';
+  const targetId = activeView === 'highlights' ? 'resume-highlights' : activeView === 'ats' ? 'view-ats' : 'resume-detailed';
+  const element = document.getElementById(targetId);
+
+  const originalText = btn.innerHTML;
+  btn.innerHTML = 'Generating…';
+  btn.style.opacity = '0.7';
+  btn.disabled = true;
+
+  try {
+    const canvas = await html2canvas(element, {
+      scale: 2,
+      useCORS: true,
+      logging: false,
+      backgroundColor: '#faf9f4'
+    });
+    const imgData = canvas.toDataURL('image/jpeg', 0.95);
+    const { jsPDF } = window.jspdf;
+    const pdf = new jsPDF({
+      orientation: 'portrait',
+      unit: 'px',
+      format: [canvas.width / 2, canvas.height / 2]
+    });
+    pdf.addImage(imgData, 'JPEG', 0, 0, canvas.width / 2, canvas.height / 2);
+    pdf.save('Davesh_Sharma_Resume.pdf');
+  } catch(err) {
+    console.error(err);
+    alert('PDF generation failed. Please use Ctrl+P / Cmd+P to print as PDF.');
+  } finally {
+    btn.innerHTML = originalText;
+    btn.style.opacity = '1';
+    btn.disabled = false;
+  }
 }
 </script>
 </body>
