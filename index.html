@@ -3,404 +3,634 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Alex Rivera — Software Engineer</title>
+<title>Davesh Sharma — Senior SRE / Cloud Infrastructure Engineer</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Instrument+Sans:ital,wght@0,300;0,400;0,500;1,400&family=Instrument+Serif:ital@0;1&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Instrument Sans',sans-serif;font-weight:300;background:#ede8df;min-height:100vh;padding:2rem 1rem;color:#1c1c1a}
 
-  :root {
-    --text-primary: #1a1a18;
-    --text-secondary: #5f5e5a;
-    --text-tertiary: #888780;
-    --bg-primary: #ffffff;
-    --bg-secondary: #f5f4f0;
-    --border: rgba(0,0,0,0.1);
-    --border-hover: rgba(0,0,0,0.2);
-    --teal: #0F6E56;
-    --teal-light: #E1F5EE;
-    --teal-dark: #085041;
-    --blue-light: #E6F1FB;
-    --blue-border: #B5D4F4;
-    --blue-dark: #0C447C;
-  }
+.topbar{max-width:960px;margin:0 auto 1.25rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+.view-toggle{display:flex;gap:0;border:1px solid #c0b8a8;border-radius:7px;overflow:hidden;background:#f5f2ec}
+.view-btn{padding:8px 18px;font-family:'Instrument Sans',sans-serif;font-size:12px;font-weight:500;color:#6b6050;background:transparent;border:none;cursor:pointer;letter-spacing:0.02em;transition:all .15s}
+.view-btn.active{background:#1c1c1a;color:#f5f2ec}
+.dl-btn{display:inline-flex;align-items:center;gap:7px;padding:9px 20px;background:#2e2e2e;color:#c49a3c;border:none;border-radius:6px;font-family:'Instrument Sans',sans-serif;font-size:13px;font-weight:500;cursor:pointer;transition:all .15s}
+.dl-btn:hover{background:#444;color:#e8c97a}
+.dl-btn i{font-size:15px}
 
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --text-primary: #f0ede6;
-      --text-secondary: #b4b2a9;
-      --text-tertiary: #888780;
-      --bg-primary: #1e1e1c;
-      --bg-secondary: #2a2a28;
-      --border: rgba(255,255,255,0.1);
-      --border-hover: rgba(255,255,255,0.2);
-      --teal: #5DCAA5;
-      --teal-light: #04342C;
-      --teal-dark: #9FE1CB;
-      --blue-light: #042C53;
-      --blue-border: #185FA5;
-      --blue-dark: #85B7EB;
-    }
-  }
+/* ── SHARED PAGE SHELL ── */
+.page{max-width:960px;margin:0 auto;display:grid;grid-template-columns:280px 1fr;border-radius:14px;overflow:hidden;border:0.5px solid rgba(0,0,0,0.1);box-shadow:0 4px 40px rgba(0,0,0,0.08)}
 
-  body {
-    font-family: 'DM Sans', sans-serif;
-    font-weight: 300;
-    color: var(--text-primary);
-    background: var(--bg-secondary);
-    line-height: 1.7;
-    font-size: 15px;
-    min-height: 100vh;
-    padding: 2rem 1rem;
-  }
+/* ── LEFT PANEL (shared) ── */
+.left{background:#2e2e2e;padding:2.5rem 2rem;display:flex;flex-direction:column;gap:2rem}
+.l-name{font-family:'Playfair Display',serif;font-size:30px;font-weight:700;color:#f5f2ec;line-height:1;letter-spacing:-0.3px}
+.l-name em{font-family:'Playfair Display',serif;font-style:italic;font-weight:400;color:#c49a3c;display:block;font-size:32px;margin-top:2px}
+.l-title{font-size:10px;font-weight:500;color:#f5f2ec;letter-spacing:0.12em;text-transform:uppercase;margin-top:10px;line-height:1.8;opacity:.55}
+.l-summary{font-size:12px;color:#f5f2ec;line-height:1.7;opacity:.75}
+.l-div{height:1px;background:rgba(255,255,255,0.12)}
+.l-label{font-family:'Syne',sans-serif;font-size:8px;font-weight:700;letter-spacing:0.18em;color:rgba(255,255,255,0.38);text-transform:uppercase;margin-bottom:9px}
+.l-contact a{display:flex;align-items:center;gap:7px;font-size:11.5px;color:#f5f2ec;opacity:.72;text-decoration:none;padding:3px 0;transition:opacity .12s}
+.l-contact a:hover{opacity:1}
+.l-contact i{font-size:14px}
+.tags{display:flex;flex-wrap:wrap;gap:4px}
+.tag{font-size:10px;padding:2px 9px;border:0.5px solid rgba(255,255,255,0.15);color:#f5f2ec;opacity:.75;border-radius:3px;background:rgba(255,255,255,0.08)}
+.tag.p{background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.15);color:#f5f2ec;opacity:.75}
+.tag.s{background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.15);color:#f5f2ec;opacity:.75}
+.certs{display:flex;flex-wrap:wrap;gap:4px}
+.cert{font-size:9px;font-weight:700;padding:3px 9px;background:#c49a3c;color:#1a1a18;letter-spacing:0.06em}
+.nums{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.num-card{background:rgba(255,255,255,0.06);border:0.5px solid rgba(255,255,255,0.12);border-radius:6px;padding:9px 10px}
+.num-val{font-family:'Syne',sans-serif;font-size:18px;font-weight:700;color:#c49a3c;line-height:1}
+.num-val small{font-size:11px;font-weight:400}
+.num-lab{font-size:9px;color:rgba(255,255,255,0.38);margin-top:2px;line-height:1.3}
 
-  .page {
-    max-width: 720px;
-    margin: 0 auto;
-    background: var(--bg-primary);
-    border-radius: 16px;
-    padding: 3rem;
-    border: 0.5px solid var(--border);
-  }
+/* ── RIGHT PANEL (shared) ── */
+.right{background:#faf9f4;padding:2.5rem 2.5rem 3rem}
+.r-intro{margin-bottom:2rem;padding-bottom:1.5rem;border-bottom:1px solid #e4ddd2}
+.r-headline{font-family:'Syne',sans-serif;font-size:20px;font-weight:700;color:#1c1c1a;line-height:1.25;letter-spacing:-0.3px}
+.r-headline em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;color:#c49a3c}
+section{margin-bottom:1.5rem}
+.r-label{font-family:'Syne',sans-serif;font-size:8px;font-weight:700;letter-spacing:0.16em;color:#9c9080;text-transform:uppercase;margin-bottom:1.1rem;display:flex;align-items:center;gap:8px}
+.r-label::after{content:'';flex:1;height:0.5px;background:#ddd5c5}
+.r-label i{font-size:12px;color:#c49a3c}
+.exp{margin-bottom:1.35rem;padding-bottom:1.35rem;border-bottom:0.5px solid #ece5d8}
+.exp:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+.exp-header{display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin-bottom:3px}
+.exp-role{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:#1c1c1a}
+.exp-date{font-size:10px;color:#9c9080;white-space:nowrap}
+.exp-co{font-size:11px;color:#b08830;font-weight:500;margin-bottom:8px;display:flex;align-items:center;gap:5px}
+.exp-co i{font-size:11px;opacity:.55}
+ul.b{list-style:none;padding:0}
+ul.b li{font-size:12.5px;color:#4a4438;line-height:1.65;padding:2px 0 2px 14px;position:relative}
+ul.b li::before{content:'–';position:absolute;left:0;color:#c49a3c;font-size:10px;top:4px}
+ul.b li.sec{color:#5a3030}
+ul.b li.sec::before{color:#b08888}
+.edu-row{display:flex;justify-content:space-between;align-items:baseline;padding:7px 0;border-bottom:0.5px solid #ece5d8}
+.edu-row:last-child{border-bottom:none}
+.edu-deg{font-family:'Syne',sans-serif;font-size:12px;font-weight:600;color:#1c1c1a}
+.edu-school{font-size:11px;color:#9c9080;margin-top:1px}
+.edu-yr{font-size:10px;color:#b0a898}
 
-  /* Header */
-  .header {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    align-items: end;
-    gap: 2rem;
-    padding-bottom: 2rem;
-    border-bottom: 0.5px solid var(--border);
-    margin-bottom: 2rem;
-  }
+/* ── ONE-PAGER HIGHLIGHTS ── */
+.hl-exp{margin-bottom:0.9rem;padding-bottom:0.9rem;border-bottom:0.5px solid #ece5d8}
+.hl-exp:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+.hl-header{display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin-bottom:2px}
+.hl-role{font-family:'Syne',sans-serif;font-size:12.5px;font-weight:700;color:#1c1c1a}
+.hl-date{font-size:10px;color:#9c9080;white-space:nowrap}
+.hl-co{font-size:11px;color:#b08830;font-weight:500;margin-bottom:6px}
+.hl-summary{font-size:11.5px;color:#4a4438;line-height:1.55;margin-bottom:5px;list-style:none;padding:0}
+.hl-pills{display:flex;flex-wrap:wrap;gap:4px}.hl-summary li{padding:1.5px 0 1.5px 13px;position:relative}.hl-summary li::before{content:"–";position:absolute;left:0;color:#c49a3c;font-size:10px;top:4px}
+.hl-pill{font-size:10px;padding:2px 8px;border:0.5px solid #d5cdc0;color:#6b6050;border-radius:3px;background:#f5f1ea}
 
-  .name {
-    font-family: 'DM Serif Display', serif;
-    font-size: 42px;
-    font-weight: 400;
-    line-height: 1.1;
-    color: var(--text-primary);
-    letter-spacing: -0.5px;
-  }
+/* ── ATS VIEW ── */
+.ats-inner{max-width:760px;margin:0 auto;background:#fff;border-radius:14px;border:0.5px solid rgba(0,0,0,0.1);padding:3rem 3.5rem;box-shadow:0 4px 40px rgba(0,0,0,0.06)}
+.ats-note{font-family:Arial,sans-serif;font-size:11px;color:#777;background:#f8f8f6;border:1px solid #e8e4dc;border-radius:6px;padding:10px 14px;margin-bottom:1.5rem;display:flex;align-items:center;gap:8px}
+.ats-note i{font-size:14px;color:#6aab96;flex-shrink:0}
+.ats-note a{color:#3a8a6e}
+.ah1{font-family:Arial,sans-serif;font-size:22px;font-weight:700;color:#000;margin:0 0 3px}
+.acontact{font-family:Arial,sans-serif;font-size:11px;color:#444;margin:0 0 14px}
+.ahr{border:none;border-top:1.5px solid #000;margin:10px 0 10px}
+.ahr2{border:none;border-top:1px solid #ccc;margin:10px 0 10px}
+.ah2{font-family:Arial,sans-serif;font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;margin:0 0 8px}
+.ap{font-family:Arial,sans-serif;font-size:11px;color:#1a1a18;line-height:1.6;margin-bottom:14px}
+.askill{font-family:Arial,sans-serif;font-size:10.5px;color:#1a1a18;line-height:1.7;margin-bottom:3px}
+.ajob{margin-bottom:14px}
+.ajob-hd{display:flex;justify-content:space-between;align-items:baseline}
+.ajob-title{font-family:Arial,sans-serif;font-size:11px;font-weight:700}
+.ajob-date{font-family:Arial,sans-serif;font-size:10px;color:#555}
+.ajob-co{font-family:Arial,sans-serif;font-size:10px;color:#444;margin:1px 0 5px}
+.alist{font-family:Arial,sans-serif;font-size:10.5px;color:#1a1a18;line-height:1.6;padding-left:18px;margin:0}
+.alist li{margin-bottom:2px}
+.aedu{display:flex;justify-content:space-between;font-family:Arial,sans-serif;font-size:10.5px;margin-top:4px}
 
-  .title-tag {
-    font-family: 'DM Mono', monospace;
-    font-size: 12px;
-    font-weight: 500;
-    color: var(--teal);
-    background: var(--teal-light);
-    padding: 4px 10px;
-    border-radius: 4px;
-    display: inline-block;
-    margin-top: 8px;
-    letter-spacing: 0.04em;
-  }
-
-  .contact-links {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 6px;
-  }
-
-  .contact-links a {
-    font-size: 13px;
-    color: var(--text-secondary);
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    font-weight: 400;
-    transition: color 0.15s;
-  }
-
-  .contact-links a:hover { color: var(--text-primary); }
-  .contact-links i { font-size: 14px; }
-
-  /* Sections */
-  section { margin-bottom: 2rem; }
-
-  .section-label {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    font-weight: 500;
-    letter-spacing: 0.12em;
-    color: var(--text-tertiary);
-    text-transform: uppercase;
-    margin-bottom: 1rem;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-
-  .section-label::after {
-    content: '';
-    flex: 1;
-    height: 0.5px;
-    background: var(--border);
-  }
-
-  /* Skills */
-  .skill-grid { display: flex; flex-wrap: wrap; gap: 6px; }
-
-  .skill-pill {
-    font-family: 'DM Mono', monospace;
-    font-size: 12px;
-    font-weight: 400;
-    padding: 4px 12px;
-    border-radius: 4px;
-    border: 0.5px solid var(--border-hover);
-    color: var(--text-secondary);
-    background: var(--bg-secondary);
-  }
-
-  .skill-pill.highlight {
-    background: var(--blue-light);
-    color: var(--blue-dark);
-    border-color: var(--blue-border);
-  }
-
-  /* Experience */
-  .exp-item {
-    margin-bottom: 1.5rem;
-    padding-bottom: 1.5rem;
-    border-bottom: 0.5px solid var(--border);
-  }
-
-  .exp-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
-
-  .exp-header {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    align-items: baseline;
-    gap: 1rem;
-    margin-bottom: 4px;
-  }
-
-  .exp-role { font-weight: 500; font-size: 15px; }
-  .exp-date { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text-tertiary); }
-  .exp-company { font-size: 13px; color: var(--teal); margin-bottom: 6px; }
-  .exp-desc { font-size: 14px; color: var(--text-secondary); line-height: 1.6; }
-
-  /* Education */
-  .edu-item {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    align-items: baseline;
-    gap: 1rem;
-    margin-bottom: 1rem;
-    padding-bottom: 1rem;
-    border-bottom: 0.5px solid var(--border);
-  }
-
-  .edu-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
-  .edu-degree { font-weight: 500; font-size: 15px; }
-  .edu-school { font-size: 13px; color: var(--text-secondary); }
-  .edu-date { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text-tertiary); text-align: right; }
-
-  /* Projects */
-  .project-item {
-    margin-bottom: 1rem;
-    padding: 1rem 1.25rem;
-    border: 0.5px solid var(--border);
-    border-radius: 12px;
-    background: var(--bg-primary);
-    transition: border-color 0.15s;
-  }
-
-  .project-item:hover { border-color: var(--border-hover); }
-
-  .project-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 4px;
-  }
-
-  .project-name { font-weight: 500; font-size: 14px; }
-
-  .project-link {
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    color: var(--teal);
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    gap: 3px;
-  }
-
-  .project-link:hover { text-decoration: underline; }
-
-  .project-desc { font-size: 13px; color: var(--text-secondary); line-height: 1.55; }
-
-  .project-stack { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 8px; }
-
-  .project-tag {
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    padding: 2px 8px;
-    border-radius: 3px;
-    background: var(--teal-light);
-    color: var(--teal-dark);
-  }
-
-  /* Contact */
-  .contact-section {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-    gap: 8px;
-  }
-
-  .contact-card {
-    padding: 0.75rem 1rem;
-    border: 0.5px solid var(--border);
-    border-radius: 8px;
-    background: var(--bg-secondary);
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 13px;
-    color: var(--text-secondary);
-    text-decoration: none;
-    transition: all 0.15s;
-  }
-
-  .contact-card:hover {
-    background: var(--bg-primary);
-    color: var(--text-primary);
-    border-color: var(--border-hover);
-  }
-
-  .contact-card i { font-size: 16px; color: var(--teal); }
-
-  /* Responsive */
-  @media (max-width: 600px) {
-    .page { padding: 1.5rem; border-radius: 12px; }
-    .header { grid-template-columns: 1fr; gap: 1rem; }
-    .contact-links { align-items: flex-start; }
-    .name { font-size: 32px; }
-    .exp-header { grid-template-columns: 1fr; gap: 2px; }
-    .edu-item { grid-template-columns: 1fr; }
-    .edu-date { text-align: left; }
-  }
+@media print{
+  body{background:#fff;padding:0}
+  .topbar{display:none}
+  .page{border-radius:0;border:none;max-width:100%;box-shadow:none}
+  .left{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+@media(max-width:700px){
+  .page{grid-template-columns:1fr}
+  .topbar{flex-direction:column;align-items:stretch}
+  .topbar-right,.dl-btn,.dl-ats-btn,.view-toggle{width:100%;justify-content:center}
+  .ats-inner{padding:2rem 1.5rem}
+}
 </style>
 </head>
 <body>
 
-<div class="page">
+<div style="max-width:960px;margin:0 auto 1rem;background:#2e2e2e;border-radius:10px;padding:12px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px">
+  <div style="display:flex;align-items:center;gap:10px">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#c49a3c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+    <span style="font-family:'Instrument Sans',sans-serif;font-size:12px;color:rgba(255,255,255,0.7)">Switch between <strong style="color:#c49a3c">Detailed Resume</strong>, <strong style="color:#c49a3c">One-Pager</strong>, and <strong style="color:#c49a3c">Document View</strong> using the tabs below — each tab can be downloaded as a PDF using the Download button.</span>
+  </div>
+  <span style="font-family:'Instrument Sans',sans-serif;font-size:11px;color:rgba(255,255,255,0.35);white-space:nowrap">Last updated · July 2026</span>
+</div>
 
-  <div class="header">
+<div class="topbar">
+  <div class="view-toggle">
+    <button class="view-btn active" onclick="showView('detailed')">Detailed Resume</button>
+    <button class="view-btn" onclick="showView('highlights')">One-Pager</button>
+    <button class="view-btn" onclick="showView('ats')">Document View</button>
+  </div>
+  <button class="dl-btn" id="dl-btn" onclick="downloadPDF()"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7,10 12,15 17,10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Download PDF</button>
+</div>
+
+<!-- ══════════════════════════════════════
+     FULL RESUME
+══════════════════════════════════════ -->
+<div id="view-detailed">
+<div class="page" id="resume-detailed">
+  <div class="left">
     <div>
-      <div class="name">Alex Rivera</div>
-      <div class="title-tag">Software Engineer</div>
+      <div class="l-name">Davesh<em>Sharma</em></div>
+      <div class="l-title">Senior SRE / Cloud Infrastructure Engineer</div>
+      <div class="l-summary" style="margin-top:12px">I fix systems at the root, not at the surface. Ten years in, I still believe the best infrastructure is the kind engineers stop thinking about — because it just works. I automate the toil, build platforms that make teams faster, treat security as a design constraint rather than an afterthought, and stay hands-on long enough to understand what I'm simplifying. I've done this at food delivery scale, in automotive, and across early-stage data platforms.</div>
     </div>
-    <div class="contact-links">
-      <a href="mailto:alex@email.com"><i class="ti ti-mail"></i> alex@email.com</a>
-      <a href="https://github.com/alexrivera" target="_blank"><i class="ti ti-brand-github"></i> github.com/alexrivera</a>
-      <a href="https://linkedin.com/in/alexrivera" target="_blank"><i class="ti ti-brand-linkedin"></i> linkedin.com/in/alexrivera</a>
-      <a href="#"><i class="ti ti-map-pin"></i> San Francisco, CA</a>
+    <div class="l-div"></div>
+    <div>
+      <div class="l-label">Contact Details</div>
+      <div class="l-contact">
+        <a href="mailto:daveshsharma@outlook.com"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0"><rect x="3" y="5" width="18" height="14" rx="2"/><polyline points="3,5 12,13 21,5"/></svg> daveshsharma@outlook.com</a>
+        <a href="tel:+4917665908200"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg> +49-176-6590-8200</a>
+        <a href="https://linkedin.com/in/davesh--sharma" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg> linkedin.com/in/davesh--sharma</a>
+      </div>
+    </div>
+    <div>
+      <div class="l-label">Core stack</div>
+      <div class="tags">
+        <span class="tag">Kubernetes</span>
+        <span class="tag">Terraform</span>
+        <span class="tag">AWS</span>
+        <span class="tag">Python</span>
+        <span class="tag">Golang</span>
+        <span class="tag">GitHub Actions</span>
+        <span class="tag">Docker</span>
+        <span class="tag">ArgoCD</span>
+        <span class="tag">Helm</span>
+        <span class="tag">Prometheus</span>
+        <span class="tag">Grafana</span>
+        <span class="tag">Datadog</span>
+        <span class="tag">OpenTelemetry</span>
+        <span class="tag">Ansible</span>
+        <span class="tag">Cloudflare</span>
+        <span class="tag">Backstage</span>
+        <span class="tag">PostgreSQL</span>
+        <span class="tag">MySQL</span>
+        <span class="tag">Redis</span>
+        <span class="tag">Athena</span>
+        <span class="tag">DynamoDB</span>
+        <span class="tag">Linux</span>
+      </div>
+    </div>
+    <div>
+      <div class="l-label">Security add-on</div>
+      <div class="tags">
+        <span class="tag">Wiz</span>
+        <span class="tag">Trivy</span>
+        <span class="tag">Falco</span>
+        <span class="tag">HashiCorp Vault</span>
+        <span class="tag">Suricata IDS</span>
+        <span class="tag">Nmap</span>
+        <span class="tag">Gobuster</span>
+        <span class="tag">RBAC auditing</span>
+        <span class="tag">Zero-trust networking</span>
+        <span class="tag">IAM least-privilege</span>
+        <span class="tag">CVE triage</span>
+        <span class="tag">Infra hardening</span>
+      </div>
+    </div>
+    <div>
+      <div class="l-label">Certifications</div>
+      <div class="certs">
+        <span class="cert">CKA</span>
+      </div>
+      <div style="font-size:9px;color:rgba(255,255,255,0.35);margin-top:5px;line-height:1.5;font-style:italic">Previously held: CKAD · RHCE · RHCSA</div>
+    </div>
+    <div>
+      <div class="l-label">At a glance</div>
+      <div class="nums">
+        <div class="num-card"><div class="num-val">10<small>+ yrs</small></div><div class="num-lab">SRE &amp; DevOps</div></div>
+        <div class="num-card"><div class="num-val">1M<small>+</small></div><div class="num-lab">Daily orders managed</div></div>
+      </div>
+      <div style="background:rgba(255,255,255,0.04);border:0.5px solid rgba(255,255,255,0.1);border-radius:6px;padding:10px 12px;margin-top:7px">
+        <div style="font-size:8px;font-weight:700;letter-spacing:0.12em;color:rgba(255,255,255,0.35);text-transform:uppercase;margin-bottom:7px">Areas of depth</div>
+        <div style="display:flex;flex-wrap:wrap;gap:4px">
+          <span style="font-size:9px;padding:2px 8px;border:0.5px solid rgba(255,255,255,0.12);color:rgba(255,255,255,0.55);border-radius:3px">Platform engineering</span>
+          <span style="font-size:9px;padding:2px 8px;border:0.5px solid rgba(255,255,255,0.12);color:rgba(255,255,255,0.55);border-radius:3px">GitOps</span>
+          <span style="font-size:9px;padding:2px 8px;border:0.5px solid rgba(255,255,255,0.12);color:rgba(255,255,255,0.55);border-radius:3px">Multi-account AWS</span>
+          <span style="font-size:9px;padding:2px 8px;border:0.5px solid rgba(255,255,255,0.12);color:rgba(255,255,255,0.55);border-radius:3px">Observability</span>
+          <span style="font-size:9px;padding:2px 8px;border:0.5px solid rgba(255,255,255,0.12);color:rgba(255,255,255,0.55);border-radius:3px">Zero-trust networking</span>
+          <span style="font-size:9px;padding:2px 8px;border:0.5px solid rgba(255,255,255,0.12);color:rgba(255,255,255,0.55);border-radius:3px">Developer enablement</span>
+        </div>
+      </div>
+      <div style="background:rgba(255,255,255,0.04);border:0.5px solid rgba(255,255,255,0.1);border-radius:6px;padding:10px 12px;margin-top:7px">
+        <div style="font-size:8px;font-weight:700;letter-spacing:0.12em;color:rgba(255,255,255,0.35);text-transform:uppercase;margin-bottom:7px">Security interest · Hack The Box</div>
+        <div style="display:flex;flex-wrap:wrap;gap:4px">
+          <span style="font-size:9px;padding:2px 8px;border:0.5px solid rgba(255,255,255,0.12);color:rgba(255,255,255,0.55);border-radius:3px">K8s misconfigs</span>
+          <span style="font-size:9px;padding:2px 8px;border:0.5px solid rgba(255,255,255,0.12);color:rgba(255,255,255,0.55);border-radius:3px">Container escapes</span>
+          <span style="font-size:9px;padding:2px 8px;border:0.5px solid rgba(255,255,255,0.12);color:rgba(255,255,255,0.55);border-radius:3px">IAM escalation</span>
+          <span style="font-size:9px;padding:2px 8px;border:0.5px solid rgba(255,255,255,0.12);color:rgba(255,255,255,0.55);border-radius:3px">Secret leakage</span>
+        </div>
+      </div>
     </div>
   </div>
 
-  <section>
-    <div class="section-label">Skills &amp; technologies</div>
-    <div class="skill-grid">
-      <span class="skill-pill highlight">Python</span>
-      <span class="skill-pill highlight">TypeScript</span>
-      <span class="skill-pill highlight">React</span>
-      <span class="skill-pill highlight">Node.js</span>
-      <span class="skill-pill">PostgreSQL</span>
-      <span class="skill-pill">Redis</span>
-      <span class="skill-pill">AWS</span>
-      <span class="skill-pill">Docker</span>
-      <span class="skill-pill">Kubernetes</span>
-      <span class="skill-pill">GraphQL</span>
-      <span class="skill-pill">REST APIs</span>
-      <span class="skill-pill">Git</span>
-      <span class="skill-pill">CI/CD</span>
-      <span class="skill-pill">Linux</span>
+  <div class="right">
+    <div class="r-intro">
+      <div class="r-headline">Senior SRE &amp; Cloud Infrastructure Engineer.</div>
     </div>
-  </section>
 
-  <section>
-    <div class="section-label">Work experience</div>
-    <div class="exp-item">
-      <div class="exp-header">
-        <div class="exp-role">Senior Software Engineer</div>
-        <div class="exp-date">2022 — Present</div>
-      </div>
-      <div class="exp-company">Acme Corp · Full-time</div>
-      <div class="exp-desc">Led backend development of a real-time data pipeline processing 5M events/day. Reduced API latency by 40% through query optimization and caching strategies. Mentored 3 junior engineers.</div>
-    </div>
-    <div class="exp-item">
-      <div class="exp-header">
-        <div class="exp-role">Software Engineer</div>
-        <div class="exp-date">2020 — 2022</div>
-      </div>
-      <div class="exp-company">TechStart Inc · Full-time</div>
-      <div class="exp-desc">Built and maintained React-based dashboards serving 10K+ daily active users. Implemented OAuth2 authentication flow and role-based access control system.</div>
-    </div>
-    <div class="exp-item">
-      <div class="exp-header">
-        <div class="exp-role">Junior Developer</div>
-        <div class="exp-date">2018 — 2020</div>
-      </div>
-      <div class="exp-company">Web Agency Co · Full-time</div>
-      <div class="exp-desc">Developed client websites and internal tools. Collaborated with design team to translate Figma mockups into responsive, accessible interfaces.</div>
-    </div>
-  </section>
+    <section>
+      <div class="r-label">Professional Experience</div>
 
-  <section>
-    <div class="section-label">Projects</div>
-    <div class="project-item">
-      <div class="project-header">
-        <div class="project-name">OpenMetrics Dashboard</div>
-        <a class="project-link" href="https://github.com/alexrivera/openmetrics" target="_blank"><i class="ti ti-brand-github"></i> github.com/alexrivera/openmetrics</a>
+      <div class="exp">
+        <div class="exp-header"><div class="exp-role">Senior Cloud Infrastructure Engineer</div><div class="exp-date">Sep 2025 – Present</div></div>
+        <div class="exp-co">Babbel · Berlin</div>
+        <ul class="b">
+          <li>Engineered secure CI/CD pipelines in GitHub Actions and architected AWS Transit Gateway as the zero-trust network backbone, enforcing centralised traffic control and least-privilege connectivity across accounts and VPCs.</li>
+          <li>Led database version upgrades and built self-service database update workflows using native AWS services, contributing to the organisation's multi-account AWS strategy.</li>
+          <li>Contributed to cross-functional incident response and root cause analysis, driving post-incident preventive controls that improved system resilience over time.</li>
+          <li>Established the organisation's operational knowledge base — authoring runbooks, incident response playbooks, architecture documentation, and developer onboarding guides that formalised tribal knowledge into repeatable, auditable workflows.</li>
+          <li>Drives cloud cost optimisation — right-sizing compute, decommissioning idle resources, and restructuring storage to align operational excellence with financial efficiency.</li>
+          <li>Leveraged AI tooling to build and maintain structured engineering knowledge bases — including authoring Skills.md and reusable runbook libraries — accelerating Terraform module development, CI/CD workflows, and team capability as a force multiplier across the organisation.</li>
+          <li class="sec">Owns cloud vulnerability triage and remediation through Wiz, maintaining a continuously hardened and audit-ready AWS environment.</li>
+          <li class="sec">Strengthened network security posture by implementing and tuning Suricata IDS rules, enabling real-time threat detection across critical cloud workloads.</li>
+        </ul>
       </div>
-      <div class="project-desc">Open-source monitoring dashboard for distributed systems. Supports Prometheus, Datadog, and custom integrations.</div>
-      <div class="project-stack">
-        <span class="project-tag">React</span>
-        <span class="project-tag">Python</span>
-        <span class="project-tag">Prometheus</span>
-      </div>
-    </div>
-    <div class="project-item">
-      <div class="project-header">
-        <div class="project-name">CLI Task Manager</div>
-        <a class="project-link" href="https://github.com/alexrivera/taskr" target="_blank"><i class="ti ti-brand-github"></i> github.com/alexrivera/taskr</a>
-      </div>
-      <div class="project-desc">Terminal-based task manager with sync support across devices via a lightweight REST API backend.</div>
-      <div class="project-stack">
-        <span class="project-tag">TypeScript</span>
-        <span class="project-tag">Node.js</span>
-        <span class="project-tag">SQLite</span>
-      </div>
-    </div>
-  </section>
 
-  <section>
-    <div class="section-label">Education</div>
-    <div class="edu-item">
-      <div>
-        <div class="edu-degree">B.S. Computer Science</div>
-        <div class="edu-school">University of California, Berkeley</div>
+      <div class="exp">
+        <div class="exp-header"><div class="exp-role">Site Reliability Engineer</div><div class="exp-date">Jan 2025 – Jun 2025</div></div>
+        <div class="exp-co">Flaschenpost SE · Berlin</div>
+        <ul class="b">
+          <li>Owned and rebuilt the organisation's CI/CD infrastructure end-to-end — eliminating legacy code, updating pipelines adopted company-wide, and modernising artifact management with full OCI protocol support.</li>
+          <li>Delivered self-service Backstage developer templates enabling teams to provision infrastructure autonomously, removing onboarding bottlenecks and improving time-to-production.</li>
+          <li>Refactored and extended the Terraform module library for improved maintainability and upstream feature compatibility, accelerating infrastructure iteration.</li>
+          <li>Overhauled on-call alerting logic, reducing MTTR by 30% and significantly lowering alert fatigue across production systems.</li>
+          <li class="sec">Defined and owned the full Kubernetes cluster lifecycle — provisioning, node management, upgrades, and day-to-day operations — while implementing security best practices including remediation of RBAC over-permissions and exposed cluster endpoints.</li>
+        </ul>
       </div>
-      <div class="edu-date">2014 — 2018</div>
-    </div>
-  </section>
 
-  <section>
-    <div class="section-label">Contact</div>
-    <div class="contact-section">
-      <a class="contact-card" href="mailto:alex@email.com"><i class="ti ti-mail"></i> alex@email.com</a>
-      <a class="contact-card" href="https://github.com/alexrivera" target="_blank"><i class="ti ti-brand-github"></i> GitHub</a>
-      <a class="contact-card" href="https://linkedin.com/in/alexrivera" target="_blank"><i class="ti ti-brand-linkedin"></i> LinkedIn</a>
-      <a class="contact-card" href="#"><i class="ti ti-file-cv"></i> Download CV</a>
-    </div>
-  </section>
+      <div class="exp">
+        <div class="exp-header"><div class="exp-role">Site Reliability Engineer</div><div class="exp-date">Jul 2024 – Dec 2024</div></div>
+        <div class="exp-co">Cariad SE · Berlin</div>
+        <ul class="b">
+          <li>Architected and deployed an observability platform using OpenTelemetry Collector, Grafana, Prometheus, and Victoria Metrics — establishing end-to-end distributed tracing across microservices, driving team adoption, and migrating away from paid monitoring platforms to reduce costs without sacrificing visibility.</li>
+          <li>Implemented SSO/IDP authentication via Okta across all internal monitoring platforms — centralising access control so that account deactivation in Okta automatically revokes access, eliminating manual offboarding overhead and improving the organisation's internal security posture.</li>
+        </ul>
+      </div>
 
+      <div class="exp">
+        <div class="exp-header"><div class="exp-role">Site Reliability Engineer</div><div class="exp-date">May 2020 – May 2024</div></div>
+        <div class="exp-co">Deliveryhero · Berlin</div>
+        <ul class="b">
+          <li>Designed and operated Terraform-managed AWS infrastructure supporting 400+ instances with 99.9% availability, providing a reliable foundation for one of Europe's largest food delivery platforms.</li>
+          <li>Led Kubernetes adoption across the engineering organisation, implementing a GitOps pull-based deployment model that eliminated manual deployment intervention entirely — empowering development teams to own and trigger releases independently at their own pace.</li>
+          <li>Built a comprehensive observability platform (Prometheus, Grafana, Datadog, OpsGenie), accelerating incident response by 60% and improving overall system reliability.</li>
+          <li>Managed high-traffic clusters supporting over 1 million daily orders across 100+ applications; reduced developer debugging time by 70% through proactive enablement.</li>
+          <li>Led cross-functional initiatives, mentored junior engineers, and drove knowledge-sharing practices that raised operational standards across teams.</li>
+          <li>Reclaimed 15+ engineering hours per week through Terraform automation and runbook-driven incident resolution.</li>
+          <li class="sec">Embedded Trivy vulnerability scanning and Vault-based secrets management into all CI/CD pipelines, enforcing zero hardcoded credentials across the organisation.</li>
+          <li class="sec">Authored a custom Kubernetes operator to automate secrets lifecycle management, eliminating manual credential rotation.</li>
+        </ul>
+      </div>
+
+      <div class="exp">
+        <div class="exp-header"><div class="exp-role">Senior DevOps Engineer</div><div class="exp-date">Jan 2018 – Apr 2020</div></div>
+        <div class="exp-co">Msys Technologies · Chennai</div>
+        <ul class="b">
+          <li>Provisioned DC/OS and bare metal Kubernetes clusters via Ansible, leading a full VM to container workload migration across the organisation.</li>
+          <li>Built and maintained Jenkins delivery pipelines and Python/Bash automation tooling, reducing release errors and improving engineering throughput.</li>
+        </ul>
+      </div>
+
+      <div class="exp">
+        <div class="exp-header"><div class="exp-role">DevOps Engineer</div><div class="exp-date">Dec 2016 – Dec 2017</div></div>
+        <div class="exp-co">Cron Systems · Gurugram</div>
+        <ul class="b">
+          <li>Designed and delivered automated CI/CD pipelines and deployment infrastructure for a high-compliance environment, implementing GitLab-based version control, automated testing workflows, and zero-downtime deployment processes across critical production systems.</li>
+          <li>Migrated version control to self-hosted GitLab, reducing licensing costs and improving pipeline auditability and control.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section>
+      <div class="r-label">Security Research &amp; Bug Bounty</div>
+      <p style="font-size:12.5px;color:#4a4438;line-height:1.7">Pursuing an active personal interest alongside full-time engineering responsibilities. Research focuses on cloud-native infrastructure attack surfaces — Kubernetes RBAC misconfigurations, container escape vectors, IAM privilege escalation, exposed metadata endpoints, and secret leakage detection. Active on HackerOne and Bugcrowd targeting infrastructure and cloud scopes. Findings feed directly back into professional hardening practice, making independent research and day-to-day engineering mutually reinforcing.</p>
+    </section>
+
+    <section>
+      <div class="r-label">Education</div>
+      <div class="edu-row">
+        <div><div class="edu-deg">Master of Computer Applications (MCA)</div><div class="edu-school">Amity University</div></div>
+        <div class="edu-yr">2012 – 2015</div>
+      </div>
+      <div class="edu-row">
+        <div><div class="edu-deg">Bachelor of Science (B.Sc)</div><div class="edu-school">Delhi University</div></div>
+        <div class="edu-yr">2008 – 2011</div>
+      </div>
+    </section>
+  </div>
+</div>
 </div>
 
+<!-- ══════════════════════════════════════
+     ONE-PAGER HIGHLIGHTS
+══════════════════════════════════════ -->
+<div id="view-highlights" style="display:none">
+<div class="page" id="resume-highlights">
+  <div class="left">
+    <div>
+      <div class="l-name">Davesh<em>Sharma</em></div>
+      <div class="l-title">Senior SRE / Cloud Infrastructure Engineer</div>
+      <div class="l-summary" style="margin-top:12px">A decade of SRE and platform engineering across food delivery, automotive, and language technology at scale. I build infrastructure that engineering teams stop worrying about — reliable by design, secure by default, and simple enough that the complexity is invisible. I automate toil, build platforms that accelerate teams, and treat security as an engineering constraint from day one.</div>
+    </div>
+    <div class="l-div"></div>
+    <div>
+      <div class="l-label">Contact Details</div>
+      <div class="l-contact">
+        <a href="mailto:daveshsharma@outlook.com"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0"><rect x="3" y="5" width="18" height="14" rx="2"/><polyline points="3,5 12,13 21,5"/></svg> daveshsharma@outlook.com</a>
+        <a href="tel:+4917665908200"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg> +49-176-6590-8200</a>
+        <a href="https://linkedin.com/in/davesh--sharma" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg> linkedin.com/in/davesh--sharma</a>
+      </div>
+    </div>
+    <div>
+      <div class="l-label">Core stack</div>
+      <div class="tags">
+        <span class="tag">Kubernetes</span><span class="tag">Terraform</span><span class="tag">AWS</span><span class="tag">Python</span><span class="tag">Golang</span><span class="tag">GitHub Actions</span><span class="tag">Docker</span><span class="tag">ArgoCD</span><span class="tag">Helm</span><span class="tag">Prometheus</span><span class="tag">Grafana</span><span class="tag">Datadog</span><span class="tag">OpenTelemetry</span><span class="tag">Ansible</span><span class="tag">Cloudflare</span><span class="tag">Backstage</span><span class="tag">PostgreSQL</span><span class="tag">MySQL</span><span class="tag">Redis</span><span class="tag">Athena</span><span class="tag">DynamoDB</span><span class="tag">Linux</span>
+      </div>
+    </div>
+    <div>
+      <div class="l-label">Security add-on</div>
+      <div class="tags">
+        <span class="tag">Wiz</span><span class="tag">Trivy</span><span class="tag">Falco</span><span class="tag">HashiCorp Vault</span><span class="tag">Suricata IDS</span><span class="tag">Nmap</span><span class="tag">Gobuster</span><span class="tag">RBAC auditing</span><span class="tag">Zero-trust networking</span><span class="tag">IAM least-privilege</span><span class="tag">CVE triage</span><span class="tag">Infra hardening</span>
+      </div>
+    </div>
+    <div>
+      <div class="l-label">Certifications</div>
+      <div class="certs"><span class="cert">CKA</span></div>
+      <div style="font-size:9px;color:rgba(255,255,255,0.35);margin-top:5px;line-height:1.5;font-style:italic">Previously held: CKAD · RHCE · RHCSA</div>
+    </div>
+    <div>
+      <div class="l-label">At a glance</div>
+      <div class="nums">
+        <div class="num-card"><div class="num-val">10<small>+ yrs</small></div><div class="num-lab">SRE &amp; DevOps</div></div>
+        <div class="num-card"><div class="num-val">1M<small>+</small></div><div class="num-lab">Daily orders managed</div></div>
+      </div>
+      <div style="background:rgba(255,255,255,0.04);border:0.5px solid rgba(255,255,255,0.1);border-radius:6px;padding:10px 12px;margin-top:7px">
+        <div style="font-size:8px;font-weight:700;letter-spacing:0.12em;color:rgba(255,255,255,0.35);text-transform:uppercase;margin-bottom:7px">Areas of depth</div>
+        <div style="display:flex;flex-wrap:wrap;gap:4px">
+          <span style="font-size:9px;padding:2px 8px;border:0.5px solid rgba(255,255,255,0.12);color:rgba(255,255,255,0.55);border-radius:3px">Platform engineering</span>
+          <span style="font-size:9px;padding:2px 8px;border:0.5px solid rgba(255,255,255,0.12);color:rgba(255,255,255,0.55);border-radius:3px">GitOps</span>
+          <span style="font-size:9px;padding:2px 8px;border:0.5px solid rgba(255,255,255,0.12);color:rgba(255,255,255,0.55);border-radius:3px">Multi-account AWS</span>
+          <span style="font-size:9px;padding:2px 8px;border:0.5px solid rgba(255,255,255,0.12);color:rgba(255,255,255,0.55);border-radius:3px">Observability</span>
+          <span style="font-size:9px;padding:2px 8px;border:0.5px solid rgba(255,255,255,0.12);color:rgba(255,255,255,0.55);border-radius:3px">Zero-trust networking</span>
+          <span style="font-size:9px;padding:2px 8px;border:0.5px solid rgba(255,255,255,0.12);color:rgba(255,255,255,0.55);border-radius:3px">Developer enablement</span>
+        </div>
+      </div>
+      <div style="background:rgba(255,255,255,0.04);border:0.5px solid rgba(255,255,255,0.1);border-radius:6px;padding:10px 12px;margin-top:7px">
+        <div style="font-size:8px;font-weight:700;letter-spacing:0.12em;color:rgba(255,255,255,0.35);text-transform:uppercase;margin-bottom:7px">Security interest · Hack The Box</div>
+        <div style="display:flex;flex-wrap:wrap;gap:4px">
+          <span style="font-size:9px;padding:2px 8px;border:0.5px solid rgba(255,255,255,0.12);color:rgba(255,255,255,0.55);border-radius:3px">K8s misconfigs</span>
+          <span style="font-size:9px;padding:2px 8px;border:0.5px solid rgba(255,255,255,0.12);color:rgba(255,255,255,0.55);border-radius:3px">Container escapes</span>
+          <span style="font-size:9px;padding:2px 8px;border:0.5px solid rgba(255,255,255,0.12);color:rgba(255,255,255,0.55);border-radius:3px">IAM escalation</span>
+          <span style="font-size:9px;padding:2px 8px;border:0.5px solid rgba(255,255,255,0.12);color:rgba(255,255,255,0.55);border-radius:3px">Secret leakage</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="right">
+    <div class="r-intro">
+      <div class="r-headline">Senior SRE &amp; Cloud Infrastructure Engineer.</div>
+    </div>
+
+    <section>
+      <div class="r-label">Career Overview</div>
+
+      <div class="hl-exp">
+        <div class="hl-header"><div class="hl-role">Senior Cloud Infrastructure Engineer</div><div class="hl-date">Sep 2025 – Present</div></div>
+        <div class="hl-co">Babbel · Berlin</div>
+        <ul class="hl-summary">
+          <li>Engineered secure CI/CD pipelines in GitHub Actions and architected AWS Transit Gateway as the zero-trust network backbone across the organisation's multi-account AWS environment.</li>
+          <li>Led database version upgrades and built self-service update workflows using native AWS services; established the organisation's operational knowledge base from scratch.</li>
+          <li>Owns cloud vulnerability triage via Wiz and contributes to cross-functional incident response and post-incident preventive controls.</li>
+        </ul>
+        
+      </div>
+
+      <div class="hl-exp">
+        <div class="hl-header"><div class="hl-role">Site Reliability Engineer</div><div class="hl-date">Jan 2025 – Jun 2025</div></div>
+        <div class="hl-co">Flaschenpost SE · Berlin</div>
+        <ul class="hl-summary">
+          <li>Rebuilt the organisation's CI/CD infrastructure end-to-end with OCI protocol support; delivered Backstage self-service templates that removed developer onboarding bottlenecks.</li>
+          <li>Overhauled alerting logic reducing MTTR by 30%; conducted Kubernetes RBAC audits remediating over-permissions across clusters.</li>
+        </ul>
+        
+      </div>
+
+      <div class="hl-exp">
+        <div class="hl-header"><div class="hl-role">Site Reliability Engineer</div><div class="hl-date">Jul 2024 – Dec 2024</div></div>
+        <div class="hl-co">Cariad SE · Berlin</div>
+        <ul class="hl-summary">
+          <li>Built an observability platform with OTel, Grafana, Prometheus, and Victoria Metrics — replacing paid tooling, reducing costs, and driving team adoption across microservices.</li>
+          <li>Implemented Okta SSO across internal monitoring platforms, centralising access control, automating offboarding, and strengthening internal security posture.</li>
+        </ul>
+        
+      </div>
+
+      <div class="hl-exp">
+        <div class="hl-header"><div class="hl-role">Site Reliability Engineer</div><div class="hl-date">May 2020 – May 2024</div></div>
+        <div class="hl-co">Deliveryhero · Berlin</div>
+        <ul class="hl-summary">
+          <li>Designed Terraform-managed AWS infrastructure (400+ instances, 99.9% availability) for a platform processing 1M+ daily orders; led Kubernetes adoption with a GitOps pull-based model, enabling development teams to own and trigger releases independently.</li>
+          <li>Built full observability platform (Prometheus, Grafana, Datadog) — 60% faster incident response; embedded Trivy and Vault into all pipelines enforcing zero hardcoded credentials.</li>
+          <li>Authored a custom Kubernetes operator for automated secrets lifecycle management; reclaimed 15+ engineering hours weekly through Terraform automation.</li>
+        </ul>
+        
+      </div>
+
+      <div class="hl-exp">
+        <div class="hl-header"><div class="hl-role">Senior DevOps Engineer</div><div class="hl-date">Jan 2018 – Apr 2020</div></div>
+        <div class="hl-co">Msys Technologies · Chennai</div>
+        <ul class="hl-summary">
+          <li>Provisioned DC/OS and bare-metal Kubernetes clusters via Ansible, leading full VM-to-container migration and building Jenkins pipelines that reduced release errors.</li>
+        </ul>
+        
+      </div>
+
+      <div class="hl-exp">
+        <div class="hl-header"><div class="hl-role">DevOps Engineer</div><div class="hl-date">Dec 2016 – Dec 2017</div></div>
+        <div class="hl-co">Cron Systems · Gurugram</div>
+        <ul class="hl-summary">
+          <li>Built automated CI/CD pipelines and deployment infrastructure in a high-compliance environment using GitLab, with zero-downtime deployment processes across critical production systems. Migrated version control to self-hosted GitLab, reducing licensing costs.</li>
+        </ul>
+        
+      </div>
+    </section>
+
+    <section>
+      <div class="r-label">Security Research — Bug Bounty</div>
+      <p style="font-size:12px;color:#4a4438;line-height:1.65">Pursuing a personal interest in cloud and infrastructure security through Hack The Box and related practice environments — covering Kubernetes misconfigurations, container escape vectors, IAM privilege escalation, and secret leakage. Pursuing an ongoing interest alongside full-time engineering. Security tooling applied professionally: Wiz, Trivy, Falco, Vault, Suricata IDS, Nmap, Gobuster.</p>
+    </section>
+
+    <section>
+      <div class="r-label">Education</div>
+      <div class="edu-row"><div><div class="edu-deg">Master of Computer Applications (MCA)</div><div class="edu-school">Amity University</div></div><div class="edu-yr">2012 – 2015</div></div>
+      <div class="edu-row"><div><div class="edu-deg">Bachelor of Science (B.Sc)</div><div class="edu-school">Delhi University</div></div><div class="edu-yr">2008 – 2011</div></div>
+    </section>
+  </div>
+</div>
+</div>
+
+<!-- ══════════════════════════════════════
+     ATS VERSION
+══════════════════════════════════════ -->
+<div id="view-ats" style="display:none">
+<div class="ats-inner">
+  <div class="ats-note"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg> Plain-structure Document View — standard fonts and HTML layout, optimised for ATS systems. Use the Download PDF button above to save.</div>
+
+  <h1 class="ah1">Davesh Sharma</h1>
+  <p style="font-family:Arial,sans-serif;font-size:11px;font-weight:700;color:#333;margin:3px 0 2px">Senior SRE &amp; Cloud Infrastructure Engineer</p>
+  <p style="font-family:Arial,sans-serif;font-size:11px;color:#444;margin:1px 0">daveshsharma@outlook.com</p>
+  <p style="font-family:Arial,sans-serif;font-size:11px;color:#444;margin:1px 0">+49-176-6590-8200</p>
+  <p style="font-family:Arial,sans-serif;font-size:11px;color:#444;margin:1px 0 16px"><a href="https://linkedin.com/in/davesh--sharma" style="color:#444">linkedin.com/in/davesh--sharma</a></p>
+
+  <hr class="ahr">
+  <h2 class="ah2">Professional Summary</h2>
+  <p class="ap">Senior Site Reliability / DevSecOps Engineer with 10+ years operating cloud-native infrastructure at scale. Consistently delivers infrastructure that is reliable by design — reducing operational toil, accelerating engineering teams, and performing under production pressure across organisations of varying scale and complexity. Deep expertise in Kubernetes, Terraform, and AWS. Security is treated as a design constraint throughout, not a separate workstream. Certified Kubernetes Administrator (CKA); previously held CKAD, RHCE, and RHCSA. Pursuing an active interest in security research and infrastructure-focused challenges on Hack The Box.</p>
+
+  <hr class="ahr2">
+  <h2 class="ah2">Core Technical Skills</h2>
+  <div class="askill"><strong>Cloud &amp; Infrastructure:</strong> AWS, Terraform, Kubernetes, Docker, Helm, ArgoCD, Ansible, AWS Transit Gateway, IAM, VPC, Cloudflare, Cloudflare</div>
+  <div class="askill"><strong>Languages:</strong> Python, Golang, Bash</div>
+  <div class="askill"><strong>CI/CD &amp; Delivery:</strong> GitHub Actions, Jenkins, ArgoCD, Drone, JFrog, OCI protocol, Backstage</div>
+  <div class="askill"><strong>Observability:</strong> Prometheus, Grafana, Datadog, OpenTelemetry, OpsGenie</div>
+  <div class="askill"><strong>Security:</strong> Wiz, Trivy, Falco, HashiCorp Vault, Suricata IDS, Nmap, Gobuster, RBAC auditing, zero-trust networking, IAM least-privilege, CVE triage, infrastructure hardening</div>
+  <div class="askill"><strong>Databases:</strong> PostgreSQL, MySQL, Redis, Amazon Athena, DynamoDB</div>
+  <div class="askill" style="margin-bottom:14px"><strong>Certifications:</strong> CKA (Certified Kubernetes Administrator); previously held CKAD, RHCE, RHCSA</div>
+
+  <hr class="ahr2">
+  <h2 class="ah2">Professional Experience</h2>
+
+  <div class="ajob">
+    <div class="ajob-hd"><span class="ajob-title">Senior Cloud Infrastructure Engineer</span><span class="ajob-date">September 2025 – Present</span></div>
+    <div class="ajob-co">Babbel, Berlin, Germany</div>
+    <ul class="alist">
+      <li>Engineered secure CI/CD pipelines in GitHub Actions and architected AWS Transit Gateway as the zero-trust network backbone, enforcing centralised traffic control and least-privilege connectivity across the organisation's multi-account AWS environment.</li>
+      <li>Led database version upgrades and built self-service database update workflows using native AWS services, contributing to the organisation's multi-account AWS strategy.</li>
+      <li>Contributed to cross-functional incident response and root cause analysis, driving post-incident preventive controls that improved system resilience over time.</li>
+      <li>Drives cloud cost optimisation — right-sizing compute, decommissioning idle resources, and restructuring storage to align operational excellence with financial efficiency.</li>
+      <li>Established the organisation's operational knowledge base — authoring runbooks, incident response playbooks, architecture documentation, and developer onboarding guides that reduced onboarding time and enforced process consistency.</li>
+      <li>Leveraged AI tooling to author Skills.md, reusable runbooks, and Terraform modules — accelerating engineering workflows and expanding team capability.</li>
+      <li>Owned end-to-end cloud vulnerability triage and remediation through Wiz, maintaining a continuously hardened and audit-ready AWS environment.</li>
+      <li>Implemented and tuned Suricata IDS rules for real-time threat detection across critical cloud workloads.</li>
+    </ul>
+  </div>
+
+  <div class="ajob">
+    <div class="ajob-hd"><span class="ajob-title">Site Reliability Engineer</span><span class="ajob-date">January 2025 – June 2025</span></div>
+    <div class="ajob-co">Flaschenpost SE, Berlin, Germany</div>
+    <ul class="alist">
+      <li>Owned CI/CD pipeline architecture, introducing OCI protocol support for artifact pull and push operations.</li>
+      <li>Delivered self-service Backstage developer templates enabling teams to provision infrastructure autonomously.</li>
+      <li>Refactored and extended the Terraform module library for improved maintainability and upstream compatibility.</li>
+      <li>Overhauled on-call alerting logic, reducing MTTR by 30% and lowering alert fatigue across production systems.</li>
+      <li>Defined and owned the full Kubernetes cluster lifecycle — provisioning, node management, upgrades, and day-to-day operations — while implementing security best practices including remediation of RBAC over-permissions and exposed cluster endpoints.</li>
+    </ul>
+  </div>
+
+  <div class="ajob">
+    <div class="ajob-hd"><span class="ajob-title">Site Reliability Engineer</span><span class="ajob-date">July 2024 – December 2024</span></div>
+    <div class="ajob-co">Cariad SE, Berlin, Germany</div>
+    <ul class="alist">
+      <li>Built an observability platform with OTel, Grafana, Prometheus, and Victoria Metrics — replacing paid tooling, reducing costs, and driving team adoption across microservices.</li>
+      <li>Implemented Okta SSO across internal monitoring platforms, centralising access control, automating offboarding, and strengthening internal security posture.</li>
+    </ul>
+  </div>
+
+  <div class="ajob">
+    <div class="ajob-hd"><span class="ajob-title">Site Reliability Engineer</span><span class="ajob-date">May 2020 – May 2024</span></div>
+    <div class="ajob-co">Deliveryhero, Berlin, Germany</div>
+    <ul class="alist">
+      <li>Designed and operated Terraform-managed AWS infrastructure supporting 400+ instances with 99.9% availability for a platform processing over 1 million daily orders.</li>
+      <li>Led Kubernetes adoption with a GitOps pull-based deployment model, eliminating manual intervention and enabling development teams to own and trigger releases independently.</li>
+      <li>Built a full observability platform (Prometheus, Grafana, Datadog, OpsGenie), accelerating incident response by 60%.</li>
+      <li>Managed clusters across 100+ applications and reduced developer debugging time by 70% through proactive enablement.</li>
+      <li>Embedded Trivy scanning and Vault-based secrets management into all CI/CD pipelines, enforcing zero hardcoded credentials.</li>
+      <li>Authored a custom Kubernetes operator to automate secrets lifecycle management, eliminating manual credential rotation.</li>
+      <li>Led eight cross-functional initiatives, mentored junior engineers, and drove knowledge-sharing across teams.</li>
+      <li>Reclaimed 15+ engineering hours per week through Terraform automation and runbook-driven incident resolution.</li>
+    </ul>
+  </div>
+
+  <div class="ajob">
+    <div class="ajob-hd"><span class="ajob-title">Senior DevOps Engineer</span><span class="ajob-date">January 2018 – April 2020</span></div>
+    <div class="ajob-co">Msys Technologies, Chennai, India</div>
+    <ul class="alist">
+      <li>Provisioned DC/OS and bare-metal Kubernetes clusters via Ansible; led full VM-to-container workload migration.</li>
+      <li>Built Jenkins delivery pipelines and Python/Bash automation tooling, reducing release errors and improving throughput.</li>
+    </ul>
+  </div>
+
+  <div class="ajob">
+    <div class="ajob-hd"><span class="ajob-title">DevOps Engineer</span><span class="ajob-date">December 2016 – December 2017</span></div>
+    <div class="ajob-co">Cron Systems, Gurugram, India</div>
+    <ul class="alist">
+      <li>Built automated CI/CD pipelines and deployment infrastructure in a high-compliance environment using GitLab, with zero-downtime deployment processes across critical production systems.</li>
+      <li>Migrated version control to self-hosted GitLab, reducing licensing costs and improving pipeline auditability.</li>
+    </ul>
+  </div>
+
+  <hr class="ahr2">
+  <h2 class="ah2">Security Research &amp; Bug Bounty</h2>
+  <p class="ap">Pursuing an active interest in cloud and infrastructure security through Hack The Box, focusing on Kubernetes misconfigurations, container escape vectors, IAM privilege escalation, and secret leakage. Security tooling: Wiz, Trivy, Falco, HashiCorp Vault, Suricata IDS, Nmap, Gobuster.</p>
+
+  <hr class="ahr2">
+  <h2 class="ah2">Education</h2>
+  <div class="aedu"><span><strong>Master of Computer Applications (MCA)</strong> — Amity University</span><span>2012 – 2015</span></div>
+  <div class="aedu"><span><strong>Bachelor of Science (B.Sc)</strong> — Delhi University</span><span>2008 – 2011</span></div>
+</div>
+</div>
+
+<script>
+function showView(v){
+  ['detailed','highlights','ats'].forEach(id=>{
+    document.getElementById('view-'+id).style.display = v===id ? 'block' : 'none';
+  });
+  document.querySelectorAll('.view-btn').forEach((b,i)=>{
+    const ids=['detailed','highlights','ats'];
+    b.classList.toggle('active', ids[i]===v);
+  });
+}
+
+function downloadPDF(){
+  const btn=document.getElementById('dl-btn');
+  const activeView = ['detailed','highlights','ats'].find(id=>document.getElementById('view-'+id).style.display!=='none') || 'detailed';
+  const targetId = activeView==='highlights' ? 'resume-highlights' : activeView==='ats' ? 'view-ats' : 'resume-detailed';
+  btn.innerHTML='<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0"><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"/><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"/><line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"/><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"/></svg> Generating…';
+  btn.style.opacity='0.7';
+  fetch('https://api.html2pdf.app/v1/generate',{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({html:document.getElementById(targetId).outerHTML,apiKey:'free'})
+  })
+  .then(r=>{if(!r.ok)throw new Error();return r.blob()})
+  .then(blob=>{
+    const a=document.createElement('a');
+    a.href=URL.createObjectURL(blob);
+    a.download='Davesh_Sharma_Resume.pdf';
+    a.click();
+    btn.innerHTML='<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7,10 12,15 17,10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Download PDF';
+    btn.style.opacity='1';
+  })
+  .catch(()=>{
+    window.print();
+    btn.innerHTML='<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7,10 12,15 17,10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Download PDF';
+    btn.style.opacity='1';
+  });
+}
+</script>
 </body>
 </html>
