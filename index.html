@@ -636,7 +636,35 @@ async function downloadPDF(){
       unit: 'px',
       format: [canvas.width / 2, canvas.height / 2]
     });
-    pdf.addImage(imgData, 'JPEG', 0, 0, canvas.width / 2, canvas.height / 2);
+    const pdfWidth = canvas.width / 2;
+    const pdfHeight = canvas.height / 2;
+//    pdf.addImage(imgData, 'JPEG', 0, 0, canvas.width / 2, canvas.height / 2);
+    pdf.addImage(
+    imgData,
+    'JPEG',
+    0,
+    0,
+    pdfWidth,
+    pdfHeight
+    );
+    // Make links clickable
+    const elementRect = element.getBoundingClientRect();
+    const scaleX = pdfWidth / elementRect.width;
+    const scaleY = pdfHeight / elementRect.height;
+
+    element.querySelectorAll('a[href]').forEach(anchor => {
+        Array.from(anchor.getClientRects()).forEach(rect => {
+            pdf.link(
+                (rect.left - elementRect.left) * scaleX,
+                (rect.top - elementRect.top) * scaleY,
+                rect.width * scaleX,
+                rect.height * scaleY,
+                {
+                    url: anchor.href
+                }
+            );
+        });
+    });
     pdf.save('Davesh_Sharma_Resume.pdf');
   } catch(err) {
     console.error(err);
